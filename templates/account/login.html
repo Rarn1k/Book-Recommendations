@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load i18n %}
+{% load static %}
+{% load account socialaccount %}
+{% get_providers as socialaccount_providers %}
+<head>
+    <meta charset="UTF-8">
+    <title>Книги</title>
+
+</head>
+<body>
+<div class="container account-block ">
+    <div class="h-100 row">
+        <div class="h-100 col-12 col-sm-12 col-xl-8 signup-block">
+            <h3 class="welcome">Welcome!</h3>
+            <form method="POST" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.login }}<br><br>
+                    {{ form.password }}<br>
+                    <button class="loginbutton primaryAction" type="submit">{% trans "Sign In" %}</button>
+                    <br>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
