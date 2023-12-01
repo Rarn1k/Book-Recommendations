@@ -16,12 +16,13 @@ class Genre(models.Model):
 
 class Book(models.Model):
 
-    title = models.CharField(max_length=100, verbose_name='Название книги')
+    title = models.CharField(max_length=1000, verbose_name='Название книги')
+    authors = models.CharField(max_length=1000, verbose_name='Авторы')
     image_url = models.URLField(verbose_name="Изображение")
     average_rating = models.FloatField(verbose_name="Средний рейтинг")
     rating_counts = models.PositiveIntegerField(verbose_name="Количество оценок")
-    description = models.CharField(max_length=1000, blank=True, verbose_name="Описание")
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, verbose_name='Жанр', related_name="book")
+    description = models.CharField(max_length=50000, blank=True, verbose_name="Описание")
+    genre = models.ManyToManyField(Genre, verbose_name='Жанр', related_name="book", blank=True)
 
     def __str__(self):
         return self.title
