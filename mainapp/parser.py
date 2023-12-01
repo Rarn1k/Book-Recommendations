@@ -34,7 +34,7 @@ def parse_books(dfbook):
 
 if __name__ == "__main__":
 
-    book_path = os.path.join(settings.STATICFILES_DIRS[0] + "\\dataset\\books.csv")
+    book_path = os.path.join(settings.STATICFILES_DIRS[0], 'dataset', 'books.csv')
     dfbook = pd.read_csv(book_path)
     Book.objects.all().delete()
     Genre.objects.all().delete()
