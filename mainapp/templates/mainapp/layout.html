@@ -26,7 +26,7 @@
 
     <div id="topheader">
         <nav class="navbar stroke navbar-expand-lg ">
-            <a class="navbar-brand btn btn-raised" href=" "><i class="fa fa-book fa-2x" aria-hidden="true"></i><div class="head-text row"></div></a>
+            <a class="navbar-brand btn btn-raised" href="{% url 'index' %}"><i class="fa fa-book fa-2x" aria-hidden="true"></i><div class="head-text row"></div></a>
             <button class="navbar-toggler collapsed navbar-toggler-right" data-toggle="collapse" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"><i class="fa fa-list" aria-hidden="true"></i></span>
             </button>
@@ -46,7 +46,6 @@
             </div>
         </nav>
     </div>
-        
     <!----------------------------------------------------------    end of nav bar  ------------------------------------>
     
 
@@ -57,13 +56,13 @@
         <form method="post" action="/bookSearch/">
             {% csrf_token %}
             <div class="input-group ">
-                <input class="form-control" id="search-bar" placeholder="Search for a book here" name="srch" type="text" aria-label="Search" aria-describedby="button-addon2">
+                <input class="form-control" id="search-bar" placeholder="Поиск книги" name="srch" type="text" aria-label="Search" aria-describedby="button-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-info" type="submit" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
             </div>
         </form>
-</div>
+ </div><br/>
 
   
 
