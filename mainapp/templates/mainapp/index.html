@@ -266,4 +266,75 @@
 </section>
 <!-- e section -->
 
+<section class="topbook-head text-center ">
+    <div class="container">
+        <div class="row">
+
+            <div class="col heading-genre">
+                Популярные книги среди пользователей
+            </div>
+            <!-- e col -->
+
+        </div>
+        <!-- e row -->
+    </div>
+    <!-- e container -->
+</section>
+<!-- e section -->
+
+<section class="bg-danger top-books pt-5 pb-5">
+    <div class="container">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <div class=" carousel-inner " class="ml-auto">
+                <div class="carousel-item active">
+                    {% for book in books %}
+                    <div class="card col-sm-6 col-md-6 col-md-3point9 mb-4">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <img class="card-img mr-4 mt-2 mb-2" src="{{book.image_url}}" alt="book Card">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-body">
+                                    <div class="card-title">{{book.title|truncatechars:30 }}</div>
+                                    <p class="card-text"><i>by {{book.authors|truncatechars:15}}</i></p>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <a href="javascript:;" onclick='bookDetails(this)' class="btn more-details"
+                            data-book-id="{{ book.id }}">More Details</a> {% if user.is_authenticated %}
+                        <div class='rating-block' id='rating-block-{{ book.id }}' onmouseover="rateStart(this)"
+                            onclick='rateBook(this)' onmouseout='finishRate(this)' data-book-id="{{ book.id }}">
+                            <div id='button-text-{{ book.id }}'>Rate <i class="fa fa-heart" style="color:red"></i>
+                                This Book</a>
+                            </div>
+                            <div class='rateYo' id='rate-{{ book.id }}'></div>
+                        </div>
+                        {% else %}
+                        <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
+                            <div id='button-text'>Rate <i class="fa fa-heart" style="color:red"></i> This Book
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+                </div>
+                <div class="carousel-item ">
+                    {% endif %} {% endfor %}
+                </div>
+            </div>
+            <a class="carousel-control-prev top-books-carousel" href="#demo" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <a class="carousel-control-next top-books-carousel" href="#demo" role="button" data-slide="next">
+                <span class="carousel-control-next-icon " aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
