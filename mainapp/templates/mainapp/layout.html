@@ -12,6 +12,9 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- font awesome ion-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Rating CSS -->
+    <!-- Reset styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <!-- css -->
     <link rel="stylesheet" href="{% static 'mainapp/css/layout.css' %}">
 
@@ -24,81 +27,76 @@
 <body>
 <!--------------------------------------------------------------------------    nav bar ------------------------------------------------------------>
 
-
-<div id="topheader">
-    <nav class="navbar stroke navbar-expand-lg ">
-        <a class="navbar-brand btn btn-raised" href="/"><i class="fa fa-book fa-2x" aria-hidden="true"></i>
-            <div class="head-text row"></div>
-        </a>
-        <button class="navbar-toggler collapsed navbar-toggler-right" data-toggle="collapse" type="button"
-                data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><i class="fa fa-list" aria-hidden="true"></i></span>
-        </button>
-
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav nav-head ml-auto navfont">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <div class="row navicon "><i class="nav-icon-s fa fa-home fa-2x" aria-hidden="true"></i><br>Главная
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'explore_books' %}">
-                        <div class="row navicon "><i class="nav-icon-s fa fa-globe fa-2x" aria-hidden="true"></i><br>Обзор книг</div>
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_logout' %}">
-                        <div class="row navicon"><i class="nav-icon-s fa fa-sign-in fa-2x"
-                                                    aria-hidden="true"></i><br>Выйти
-                        </div>
-                    </a>
-                </li>
-                {% else %}
-                <li class="nav-item ">
-                    <a class="nav-link " href="{% url 'account_login' %}">
-                        <div class="row navicon"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i><br>Войти
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{% url 'account_signup' %}">
-                        <div class="row navicon"><i class="fa fa-user fa-2x" aria-hidden="true"></i><br>Зарегистрироваться
-                        </div>
-                    </a>
-                </li>
-                {% endif %}
-
-            </ul>
+<header>
+    <a name='top'>
+        <div id="topheader">
+            <nav class="navbar navbar-expand-md navbar-light ">
+                <a class="navbar-brand btn btn-raised" href="/"><i class="fa fa-book fa-2x" aria-hidden="true"></i>
+                    <div class="head-text row"></div>
+                </a>
+                <div class="searchbar" id="searchdropdown">
+                    <input class="form-control" id="bookName" onkeyup="myFunction()"
+                           placeholder="&#xf002     Поиск книги"
+                           name="srch" style="outline: none;font-family:FontAwesome, kumbh sans;"
+                           type="text" aria-label="Search" title="Type in a name" aria-describedby="button-addon2">
+                    <div class="dropdown-content" id="search-dropdown">
+                    </div>
+                </div>
+                <button class="navbar-toggler" data-toggle="collapse" type="button"
+                        data-target="#navbarNav" aria-controls="navbarNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="nav-icon-s fa fa-home fa-2x" aria-hidden="true"></i><br>Главная
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'explore_books' %}">
+                                <i class="nav-icon-s fa fa-globe fa-2x" aria-hidden="true"></i><br>Обзор книг
+                            </a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">
+                                <i class="nav-icon-s fa fa-sign-in fa-2x" aria-hidden="true"></i><br>Выйти
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item ">
+                            <a class="nav-link " href="{% url 'account_login' %}">
+                                <i class="nav-icon-s fa fa-sign-in fa-2x" aria-hidden="true"></i><br>Войти
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'account_signup' %}">
+                                <i class="nav-icon-s fa fa-user fa-2x" aria-hidden="true"></i><br>Регистрация
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </nav>
-</div>
-
+    </a>
+</header>
 <!----------------------------------------------------------    end of nav bar  ------------------------------------>
 
 
 <!-------------------------------------------------------------- block ------------------------------------------------->
 
-<!-------------------------------------------------------------- search bar ---------------------------------------------------->
-<div class="book-search">
-    <form method="post" action="/bookSearch/">
-        {% csrf_token %}
-        <div class="input-group" id="searchdropdown">
-            <input class="form-control" id="bookName" onkeyup="myFunction()" placeholder="&#xf002     Поиск книги"
-                   name="srch" style="outline: none;font-family:FontAwesome, kumbh sans;"
-                   type="text" aria-label="Search" title="Type in a name" aria-describedby="button-addon2">
-            <div class="dropdown-content" id="search-dropdown">
-            </div>
-        </div>
-    </form>
+<!-- Messages -->
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible text-center" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
 </div>
-<br/>
-
-
+{% endfor %}
 <!-- Bootstrap modal -->
 <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -138,7 +136,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <a href='#top'>
     <button id="topBtn" title="Go to top"><i class="fa fa-angle-up"></i></button>
@@ -201,9 +198,9 @@
     // add search results
     function displayResults(books) {
         var searchdiv = document.getElementById('search-dropdown');
-        if (books.length == 0 && searchdiv.childElementCount == 0) {
+        if (books.length == 0) {
             var info = document.createElement('a');
-            info.innerHTML = 'No search results match your query';
+            info.innerHTML = 'По вашему поиску книги не найдено';
             info.setAttribute('href', '#');
             searchdiv.appendChild(info);
         }
@@ -212,13 +209,14 @@
             books.forEach(function(book, index, array) {
                 var booktoadd = document.createElement('a');
                 booktoadd.innerHTML = book['original_title'];
+                booktoadd.setAttribute('onclick', 'openModal(this)');
                 booktoadd.setAttribute('data-bookid', book['book_id']);
                 booktoadd.setAttribute('data-summary', book['summary']);
                 booktoadd.setAttribute('data-authors', book['authors']);
                 booktoadd.setAttribute('data-imageurl', book['image_url']);
                 booktoadd.setAttribute('data-averagerating', book['average_rating']);
                 booktoadd.setAttribute('href', 'javascript:;');
-                booktoadd.setAttribute('onclick', 'openModal(this)');
+
                 searchdiv.appendChild(booktoadd);
             });
         }
@@ -228,33 +226,36 @@
     function myFunction() {
         var input = document.getElementById('bookName');
         var text = input.value.toLowerCase();
-        if (text != '') {
-            $.ajax({
-                data: {
-                    'bookName': text,
-                    'csrfmiddlewaretoken': Cookies.get('csrftoken')
-                },
-                dataType: 'json',
-                url: "{% url 'search_ajax' %}",
-                type: 'POST',
-                success: function(response) {
-                    displayResults(JSON.parse(response['top5_result']));
-                },
-                error: function(response) {
-                    console.log(response);
-                }
-            });
-        }
-        else
-            $('#search-dropdown').empty();
+        $.ajax({
+            data: {
+                'bookName': text,
+                'csrfmiddlewaretoken': Cookies.get('csrftoken')
+            },
+            dataType: 'json',
+            url: "{% url 'search_ajax' %}",
+            type: 'POST',
+            success: function(response) {
+                displayResults(JSON.parse(response['top5_result']));
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+        $('#search-dropdown').empty();
     }
 
+    var dropdownTimeout;
+
     $("#bookName").focus(function() {
-            $('#search-dropdown').show();
-        }).blur(function() {
+        clearTimeout(dropdownTimeout);
+        $('#search-dropdown').show();
+    }).blur(function() {
+        dropdownTimeout = setTimeout(function() {
             $('#search-dropdown').hide(150);
-        })
-        //for rating a book
+        }, 200);
+    });
+
+    //for rating a book
     $(function() {
 
         $(".rateYo").rateYo({
