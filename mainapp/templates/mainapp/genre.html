@@ -25,21 +25,6 @@ Genre
                 <h5 class="card-title">{{book.title|truncatechars:35}}</h5>
                 <p class="card-text"><i>{{book.authors|truncatechars:25}}</i></p>
             </div>
-        <a href="javascript:;" onclick='bookDetails(this)' class="btn more-details"
-            data-book-id="{{ book.id }}">Подробнее</a>
-        {% if user.is_authenticated %}
-        <div class='rating-block' id='rating-block-{{ book.id }}' onmouseover="rateStart(this)" onclick='rateBook(this)' onmouseout='finishRate(this)'
-            data-book-id="{{ book.book_id }}">
-            <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
-            </div>
-            <div class='rateYo' id='rate-{{ book.id }}'></div>
-        </div>
-        {% else %}
-        <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
-            </div>
-        </div>
-        {% endif %}
         </div>
         <br>
         <a href="javascript:;" onclick='bookDetails(this)' class="btn more-details"

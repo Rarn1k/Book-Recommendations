@@ -35,3 +35,11 @@ def book_summary(request):
     book = Book.objects.filter(id=book_id.lower())
     summary = book.description
     return JsonResponse({"success": True, "booksummary": summary}, status=200)
+
+
+def explore_books(request):
+    books = Book.objects.all()
+    sample = get_top_books(books)['title'].head(400).sample(152).values
+    books_results = Book.objects.filter(title__in=sample)
+    return render(request, "mainapp/explore.html", {'books': books_results})
+

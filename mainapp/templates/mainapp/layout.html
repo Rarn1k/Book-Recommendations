@@ -45,6 +45,11 @@
                         </div>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'explore_books' %}">
+                        <div class="row navicon "><i class="nav-icon-s fa fa-globe fa-2x" aria-hidden="true"></i><br>Обзор книг</div>
+                    </a>
+                </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'account_logout' %}">
