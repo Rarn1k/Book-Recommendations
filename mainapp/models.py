@@ -52,4 +52,4 @@ class SaveForLater(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="user_save", verbose_name="Книга")
 
     def __str__(self):
-        return self.user.username.capitalize() + "- " + self.book.name
+        return self.user.username.capitalize() + "- " + self.book.title
