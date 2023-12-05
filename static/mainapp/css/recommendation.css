@@ -156,7 +156,7 @@
 
 .rating-block {
     text-align: center;
-    background-color: #31c2cf;
+    background-color: #9bc6ff;
     font-weight: 600;
     font-size: 15px;
     border-radius: 20px;
@@ -164,6 +164,7 @@
     bottom: 10px;
     position: absolute;
     left: 50%;
+    color: #000000;
 }
 
 .more-details {

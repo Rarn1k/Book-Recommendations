@@ -37,7 +37,7 @@ Explore
             </div>
             {% else %}
             <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-                <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
+                <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу
                 </div>
             </div>
             {% endif %}
@@ -76,13 +76,13 @@ Explore
                             data-book-id="{{ book.id }}">
                             <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart"
                                     style="color:red"></i> книгу
-                                </a>
+
                             </div>
                             <div class='rateYo' id='rate-{{ book.id }}'></div>
                         </div>
                         {% else %}
                         <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
+                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу
                             </div>
                         </div>
                         {% endif %}
@@ -129,13 +129,13 @@ Explore
                             data-book-id="{{ book.id }}">
                             <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart"
                                     style="color:red"></i> книгу
-                                </a>
+
                             </div>
                             <div class='rateYo' id='rate-{{ book.id }}'></div>
                         </div>
                         {% else %}
                         <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
+                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу
                             </div>
                         </div>
                         {% endif %}
@@ -181,13 +181,12 @@ Explore
                             data-book-id="{{ book.id }}">
                             <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart"
                                     style="color:red"></i> книгу
-                                </a>
                             </div>
                             <div class='rateYo' id='rate-{{ book.id }}'></div>
                         </div>
                         {% else %}
                         <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
+                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу
                             </div>
                         </div>
                         {% endif %}
