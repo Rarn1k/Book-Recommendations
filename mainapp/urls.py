@@ -10,7 +10,7 @@ urlpatterns = [
     path("explore_books/", explore_books, name="explore_books"),
     path("personal_recommendations/", personal_recommendations, name="personal_recommendations"),
     path("saved_list/", saved_list, name="saved_list"),
-    path("rated_books/", rated_books, name="rated_books")
+    path("rated_books/", rated_books, name="rated_books"),
 ]
 
 

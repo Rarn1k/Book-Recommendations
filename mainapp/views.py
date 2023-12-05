@@ -22,7 +22,6 @@ def index(request):
 
 @ensure_csrf_cookie
 def genre_books(request, genre):
-
     books = Genre.objects.get(name=genre.lower()).book.all()
     books_res = get_top_books(books)
     books_res = books_res['title'].head(48).sample(16).values
@@ -42,10 +41,39 @@ def book_summary(request):
 
 
 def explore_books(request):
+    query = request.GET.get('q', '')
+    sort_by = request.GET.get('sort', 'title')
+    author = request.GET.get('author', '')
+    selected_genre = request.GET.get("genre")
+
     books = Book.objects.all()
-    sample = get_top_books(books)['title'].head(400).sample(152).values
-    books_results = Book.objects.filter(title__in=sample)
-    return render(request, "mainapp/explore.html", {'books': books_results})
+
+    if query:
+        books = books.filter(title__icontains=query)
+
+    if author:
+        books = books.filter(authors__icontains=author)
+
+    if selected_genre:
+        books = books.filter(genre__id=selected_genre)
+
+    if sort_by == "title":
+        books = books.order_by("title")
+    elif sort_by == "author":
+        books = books.order_by("author")
+    else:
+        sample = get_top_books(books)['title'].head(400).sample(152).values
+        books = Book.objects.filter(title__in=sample)
+
+    genres = Genre.objects.all()
+
+    context = {
+        "books": books[:100],
+        "genres": genres,
+        "selected_genre": selected_genre,
+    }
+
+    return render(request, "mainapp/explore.html", context)
 
 
 @login_required
@@ -73,7 +101,6 @@ def personal_recommendations(request):
 
 
 def saved_list(request):
-
     books = SaveForLater.objects.filter(user=request.user).values_list("book", flat=True)
     if not books:
         messages.info(request, "Вы не сохранили ни одной книги")
