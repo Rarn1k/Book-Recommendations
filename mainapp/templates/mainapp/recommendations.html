@@ -30,7 +30,7 @@ Personalized Recommendations
             {% if user.is_authenticated %}
             <div class='rating-block' id='rating-block-{{ book.id }}' onmouseover="rateStart(this)"
                 onclick='rateBook(this)' onmouseout='finishRate(this)' data-book-id="{{ book.id }}">
-                <div id='button-text-{{ book.book_id }}'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
+                <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу</a>
                 </div>
                 <div class='rateYo' id='rate-{{ book.id }}'></div>
             </div>
