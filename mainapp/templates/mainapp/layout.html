@@ -70,9 +70,9 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="{% url 'personal_recommendations' %}"><i class="material-icons" style="vertical-align: -6px;">auto_stories</i>&nbsp; Рекомендации</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'index' %}"><i class="material-icons" style="vertical-align: -6px;">push_pin</i>&nbsp; Читать позже</a>
+                                    <a class="dropdown-item" href="{% url 'saved_list' %}"><i class="material-icons" style="vertical-align: -6px;">push_pin</i>&nbsp; Избранное</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'index' %}"><i class="material-icons" style="vertical-align: -6px;">star</i>&nbsp; Оцененные книги</a>
+                                    <a class="dropdown-item" href="{% url 'rated_books' %}"><i class="material-icons" style="vertical-align: -6px;">star</i>&nbsp; Оцененные книги</a>
                                 </div>
                             </div>
                             </li>
@@ -106,8 +106,8 @@
 
 <!-- Messages -->
 {% for message in messages %}
-<div class="alert {{ message.tags }} alert-dismissible text-center" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<div class="alert alert-dark text-center" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
         <span aria-hidden="true">&times;</span>
     </button>
     {{ message }}
@@ -318,7 +318,7 @@
             $('#rate-' + bookid).css('display', 'none');
             $('#button-text-' + bookid).css('display', 'block');
             $('#rating-block-' + bookid).css('transition', 'background-color 2s ease');
-            $('#rating-block-' + bookid).css('background-color', '#31c2cf');
+            $('#rating-block-' + bookid).css('background-color', '#9bc6ff');
         }, 4000);
     }
 
