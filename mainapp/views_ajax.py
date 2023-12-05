@@ -16,11 +16,7 @@ def search(request):
     """
     if request.method == "POST" and is_ajax(request=request):
         query = request.POST.get("bookName", None)
-        if not query:
-            return JsonResponse({"success": False}, status=200)
         top5_result = Book.objects.filter(title__icontains=query)[:5]
-        if not top5_result:
-            return JsonResponse({"success": False}, status=200)
         book_data = []
         for book in top5_result:
             book_data.append({
