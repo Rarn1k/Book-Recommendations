@@ -16,7 +16,7 @@ Login
 <div class="container account-block ">
     <div class="h-100 row">
         <div class="h-100 col-12 col-sm-12 col-xl-8 signin-block">
-            <h3 class="welcome">Welcome Back!</h3>
+            <h3 class="welcome">Авторизация</h3>
             <form method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 <div class="form-group">
@@ -44,7 +44,7 @@ Login
             </form>
         </div>
         <div class="h-100 hidden-sm col-xl-4 img-block mw-100" style="background-image : url('{% static "mainapp/png/BookSignUp.webp" %}')">
-            <a class="btn-bot" href="{% url 'account_signup' %}">SIGN UP</a>
+            <a class="btn-bot" href="{% url 'account_signup' %}">Зарегистрироваться</a>
         </div>
     </div>
 </div>

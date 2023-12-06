@@ -62,7 +62,8 @@ def explore_books(request):
     elif sort_by == "author":
         books = books.order_by("author")
     else:
-        sample = get_top_books(books)['title'].head(400).sample(152).values
+        sample = get_top_books(books)['title'].values
+        # sample = get_top_books(books)['title'].head(400).sample(152).values
         books = Book.objects.filter(title__in=sample)
 
     genres = Genre.objects.all()
@@ -103,7 +104,7 @@ def personal_recommendations(request):
 def saved_list(request):
     books = SaveForLater.objects.filter(user=request.user).values_list("book", flat=True)
     if not books:
-        messages.info(request, "Вы не сохранили ни одной книги")
+        messages.info(request, "У вас нет сохраненных книг")
         return redirect("index")
     total_books = len(books)
     pag_books = Book.objects.filter(id__in=books)
@@ -118,7 +119,7 @@ def saved_list(request):
 def rated_books(request):
     books_ratings = UserRating.objects.filter(user=request.user)
     if not books_ratings:
-        messages.info(request, "У вас нет оценок")
+        messages.info(request, "У вас нет оцененных книг")
         return redirect("index")
     total_books = len(books_ratings)
     paginator = Paginator(books_ratings, 10)
