@@ -42,9 +42,9 @@ def book_summary(request):
 
 def explore_books(request):
     query = request.GET.get('q', '')
-    sort_by = request.GET.get('sort', 'title')
-    author = request.GET.get('author', '')
-    selected_genre = request.GET.get("genre")
+    sort_by = request.GET.get('sort', '')
+    author = request.GET.get('authors', '')
+    selected_genre = request.GET.get('genre')
 
     books = Book.objects.all()
 
@@ -55,12 +55,17 @@ def explore_books(request):
         books = books.filter(authors__icontains=author)
 
     if selected_genre:
-        books = books.filter(genre__id=selected_genre)
+        books = books.filter(genre__name=selected_genre)
 
-    if sort_by == "title":
+    if sort_by == "rating":
+        sample = get_top_books(books)['title'].values
+        books = Book.objects.filter(title__in=sample)
+    elif sort_by == 'number_of_ratings':
+        books = books.order_by("rating_counts")
+    elif sort_by == "title":
         books = books.order_by("title")
-    elif sort_by == "author":
-        books = books.order_by("author")
+    elif sort_by == "authors":
+        books = books.order_by("authors")
     else:
         sample = get_top_books(books)['title'].values
         # sample = get_top_books(books)['title'].head(400).sample(152).values
