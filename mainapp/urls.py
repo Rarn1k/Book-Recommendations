@@ -20,4 +20,5 @@ urlpatterns += [
     path("user_rate_book/", views_ajax.user_rate_book, name="user_rate_book"),
     path("save_book/", views_ajax.save_book, name="save_book"),
     path("remove_saved_book/", views_ajax.remove_saved_book, name="remove_saved_book"),
+    path("check_saved_book/", views_ajax.check_saved_book, name="check_saved_book")
 ]

@@ -353,39 +353,105 @@
                 });
                 $('#bookModal').modal('show');
                 $('#search-dropdown').empty();
-                $('#save-book-button').on('click', function() {
-                    var bookid = obj.getAttribute('data-book-id');
-                    $('#save-book-button').css('transition', 'background-color 2s ease');
-                    $('#save-book-button').css('background-color', '#ffa007');
-                    $('#save-book-button').text('Добавлено !');
-                    setTimeout(function() {
-                        $('#save-book-button').text('Добавить в избранное');
-                        $('#save-book-button').css('transition', 'background-color 2s ease');
-                        $('#save-book-button').css('background-color', '#ffc107');
-                    }, 3000);
-                    $.ajax({
-                        data: {
-                            'bookid': bookid,
-                            'csrfmiddlewaretoken': Cookies.get('csrftoken')
-                        },
-                        dataType: 'json',
-                        url: "{% url 'save_book' %}",
-                        type: 'POST',
-                        success: function(response) {
-
-                        },
-                        error: function(response) {
-                            console.log(response);
+                $('#save-book-button').off();  // Очищаем все предыдущие обработчики событий
+                $.ajax({
+                    data: {
+                        'bookid': bookid,
+                        'csrfmiddlewaretoken': Cookies.get('csrftoken')
+                    },
+                    dataType: 'json',
+                    url: "{% url 'check_saved_book' %}",
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.is_saved) {
+                            // Если книга уже в избранном
+                            $('#save-book-button').text('Добавлено в избранное');
+                        } else {
+                            // Если книга не добавлена в избранное
+                            $('#save-book-button').text('Добавить в избранное');
                         }
-                    })
-                })
+
+                        // Добавляем новый обработчик события клика на кнопке
+                        $('#save-book-button').on('click', function() {
+                            var bookid = obj.getAttribute('data-book-id');
+                            $.ajax({
+                                data: {
+                                    'bookid': bookid,
+                                    'csrfmiddlewaretoken': Cookies.get('csrftoken')
+                                },
+                                dataType: 'json',
+                                url: "{% url 'check_saved_book' %}",
+                                type: 'POST',
+                                success: function(response) {
+                                    if (response.is_saved) {
+                                    // Если книга уже в избранном
+                                    $('#save-book-button').css('transition', 'background-color 2s ease');
+                                    $('#save-book-button').css('background-color', '#ffc107');
+                                    $('#save-book-button').text('В избранное');
+
+                                    // Вызываем функцию для удаления книги из избранного
+                                    remove_book(bookid);
+                                } else {
+                                    // Если книга не добавлена в избранное
+                                    $('#save-book-button').css('transition', 'background-color 2s ease');
+                                    $('#save-book-button').css('background-color', '#ffa007');
+                                    $('#save-book-button').text('Добавлено в избранное!');
+
+                                    // Вызываем функцию для добавления книги в избранное
+                                    save_book(bookid);
+                                }
+                                },
+                                error: function(response) {
+                                    console.log(response);
+                                }
+                            })
+                        })
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                });
             },
             error: function(response) {
                 console.log(response);
             }
         });
     }
+    function save_book(bookid) {
+    $.ajax({
+        data: {
+            'bookid': bookid,
+            'csrfmiddlewaretoken': Cookies.get('csrftoken')
+        },
+        dataType: 'json',
+        url: "{% url 'save_book' %}",
+        type: 'POST',
+        success: function(response) {
+            // Обработка успешного сохранения
+        },
+        error: function(response) {
+            console.log(response);
+        }
+    });
+    }
 
+    function remove_book(bookid) {
+        $.ajax({
+            data: {
+                'bookid': bookid,
+                'csrfmiddlewaretoken': Cookies.get('csrftoken')
+            },
+            dataType: 'json',
+            url: "{% url 'remove_saved_book' %}",  // Замените на соответствующий URL
+            type: 'POST',
+            success: function(response) {
+                // Обработка успешного удаления
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+    }
     document.body.addEventListener('scroll', ()=>{
         if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
             document.getElementById("topBtn").style.display = "block";
