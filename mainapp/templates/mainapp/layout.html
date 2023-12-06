@@ -368,7 +368,7 @@
                             $('#save-book-button').text('Добавлено в избранное');
                         } else {
                             // Если книга не добавлена в избранное
-                            $('#save-book-button').text('Добавить в избранное');
+                            $('#save-book-button').text('В избранное');
                         }
 
                         // Добавляем новый обработчик события клика на кнопке
@@ -386,7 +386,7 @@
                                     if (response.is_saved) {
                                     // Если книга уже в избранном
                                     $('#save-book-button').css('transition', 'background-color 2s ease');
-                                    $('#save-book-button').css('background-color', '#ffc107');
+                                    $('#save-book-button').css('background-color', '#ffc007');
                                     $('#save-book-button').text('В избранное');
 
                                     // Вызываем функцию для удаления книги из избранного
@@ -394,7 +394,7 @@
                                 } else {
                                     // Если книга не добавлена в избранное
                                     $('#save-book-button').css('transition', 'background-color 2s ease');
-                                    $('#save-book-button').css('background-color', '#ffa007');
+                                    $('#save-book-button').css('background-color', '#ffa107');
                                     $('#save-book-button').text('Добавлено в избранное!');
 
                                     // Вызываем функцию для добавления книги в избранное

@@ -56,15 +56,17 @@ def explore_books(request):
             books = books.order_by("authors")
         else:
             sample = get_top_books(books)['title'].values
-            # sample = get_top_books(books)['title'].head(400).sample(152).values
             books = Book.objects.filter(title__in=sample)
 
     genres = Genre.objects.all()
+    paginator = Paginator(books, 12)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        "books": books[:100],
         "genres": genres,
         "selected_genre": selected_genre,
+        "page_obj": page_obj,
     }
 
     return render(request, "mainapp/explore.html", context)
@@ -99,13 +101,13 @@ def saved_list(request):
     if not books:
         messages.info(request, "У вас нет сохраненных книг")
         return redirect("index")
-    total_books = len(books)
+
     pag_books = Book.objects.filter(id__in=books)
     paginator = Paginator(pag_books, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
-        request, "mainapp/saved_books.html", {"page_obj": page_obj, "num": total_books}
+        request, "mainapp/saved_books.html", {"page_obj": page_obj}
     )
 
 
@@ -114,10 +116,9 @@ def rated_books(request):
     if not books_ratings:
         messages.info(request, "У вас нет оцененных книг")
         return redirect("index")
-    total_books = len(books_ratings)
     paginator = Paginator(books_ratings, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
-        request, "mainapp/rated_books.html", {"page_obj": page_obj, "num": total_books}
+        request, "mainapp/rated_books.html", {"page_obj": page_obj}
     )
