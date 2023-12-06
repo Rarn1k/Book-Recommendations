@@ -35,16 +35,25 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Общий контейнер для жанров */
+/* Стили для контейнера */
 .genre-buttons-container {
     display: flex;
-    flex-wrap: wrap; /* Перенос на новую строку при нехватке места */
+    flex-wrap: wrap;
 }
 
-/* Стилизация под кнопки */
-.genre-button {
+/* Стили для каждой метки */
+.genre-label {
     margin-right: 3px;
-    margin-bottom: 3px; /* Расстояние между кнопками и перенос на новую строку */
+    margin-bottom: 3px;
+}
+
+/* Стили для внешнего вида пользовательской радиокнопки (вашего div) */
+.genre-label input[type="radio"] {
+    display: none;
+}
+
+/* Стили для внешнего вида пользовательской радиокнопки в случае не выбранного состояния */
+.genre-label div {
     padding: 6px 12px;
     background-color: rgba(50, 50, 50, 0.5);
     color: white;
@@ -53,16 +62,30 @@ button:hover {
     cursor: pointer;
 }
 
-/* Стили при наведении */
-.genre-button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Стили для выделенных кнопок */
-.genre-button[data-selected] {
+/* Стили для внешнего вида пользовательской радиокнопки в случае выбранного состояния */
+/* Стили для внешнего вида пользовательской радиокнопки в случае выбранного состояния */
+.genre-label input[type="radio"]:checked ~ div {
     background-color: #d7722c;
     color: white;
     border: 1px solid #d7722c;
 }
+
+
+/* Стили для кнопки сброса */
+.reset-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ccc;
+    color: #000;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.reset-button:hover {
+    background-color: #ddd;
+}
+
+
 
 
