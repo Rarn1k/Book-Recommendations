@@ -20,19 +20,6 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-@ensure_csrf_cookie
-def genre_books(request, genre):
-    books = Genre.objects.get(name=genre.lower()).book.all()
-    books_res = get_top_books(books)
-    books_res = books_res['title'].head(48).sample(16).values
-    books_response = Book.objects.filter(title__in=books_res)
-    context = {
-        "genre": genre.capitalize(),
-        "genre_topbooks": books_response,
-    }
-    return render(request, "mainapp/genre.html", context)
-
-
 def book_summary(request):
     book_id = request.POST.get("id", None)
     book = Book.objects.filter(id=book_id.lower())
@@ -57,19 +44,20 @@ def explore_books(request):
     if selected_genre:
         books = books.filter(genre__name=selected_genre)
 
-    if sort_by == "rating":
-        sample = get_top_books(books)['title'].values
-        books = Book.objects.filter(title__in=sample)
-    elif sort_by == 'number_of_ratings':
-        books = books.order_by("rating_counts")
-    elif sort_by == "title":
-        books = books.order_by("title")
-    elif sort_by == "authors":
-        books = books.order_by("authors")
-    else:
-        sample = get_top_books(books)['title'].values
-        # sample = get_top_books(books)['title'].head(400).sample(152).values
-        books = Book.objects.filter(title__in=sample)
+    if books:
+        if sort_by == "rating":
+            sample = get_top_books(books)['title'].values
+            books = Book.objects.filter(title__in=sample)
+        elif sort_by == 'number_of_ratings':
+            books = books.order_by("rating_counts")
+        elif sort_by == "title":
+            books = books.order_by("title")
+        elif sort_by == "authors":
+            books = books.order_by("authors")
+        else:
+            sample = get_top_books(books)['title'].values
+            # sample = get_top_books(books)['title'].head(400).sample(152).values
+            books = Book.objects.filter(title__in=sample)
 
     genres = Genre.objects.all()
 
