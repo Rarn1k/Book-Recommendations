@@ -74,7 +74,7 @@ def user_rate_book(request):
             rating_object.save()
         return JsonResponse({"success": True}, status=200)
 
-
+@login_required
 def save_book(request):
     """AJAX request when user saves book"""
     if request.method == "POST" and is_ajax(request=request):
@@ -84,7 +84,7 @@ def save_book(request):
         SaveForLater.objects.create(user=request.user, book_id=book_id)
         return JsonResponse({"success": True}, status=200)
 
-
+@login_required
 def remove_saved_book(request):
     """AJAX request when user removes book"""
     if request.method == "POST" and is_ajax(request=request):

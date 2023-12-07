@@ -28,13 +28,13 @@ Explore
                        value="{{ request.GET.author }}">
                 <br>
 
-                <label for="genres">Жанры:</label>
+                <label>Жанры:</label>
                 <div class="genre-buttons-container">
-                    {% for genre in genres %}
-                    <label class="genre-label" for="genre_{{ genre.id }}">
-                        <input type='radio' id="genre_{{ genre.id }}" name="genre" value="{{ genre.name }}" {% if genre.name == selected_genre %} class="uncheckable" checked="checked" {% endif %}>
+                    {% for genre, rus_genre in genres.items %}
+                    <label class="genre-label" name="{{ genre }}">
+                        <input type='radio' name="genre" value="{{ genre }}" {% if genre == selected_genre %} checked="checked" {% endif %}>
                         <div>
-                            {{ genre.name }}
+                            {{ rus_genre }}
                         </div>
                     </label>
                     {% endfor %}

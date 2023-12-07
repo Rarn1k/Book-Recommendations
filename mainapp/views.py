@@ -59,7 +59,36 @@ def explore_books(request):
             # sample = get_top_books(books)['title'].head(400).sample(152).values
             books = Book.objects.filter(title__in=sample)
 
-    genres = Genre.objects.all()
+    genres = {
+        "art": "искусство",
+        "biography": "биография",
+        "business": "бизнес",
+        "christian": "христианство",
+        "comics": "комиксы",
+        "contemporary": "современная проза",
+        "cookbooks": "кулинария",
+        "crime": "криминал",
+        "fantasy": "фэнтези",
+        "paranormal": "паранормальное",
+        "fiction": "художественная литература",
+        "history": "история",
+        "horror": "ужасы",
+        "manga": "манга",
+        "memoir": "мемуары",
+        "mystery": "детектив",
+        "classics": "классика",
+        "nonfiction": "научная литература",
+        "philosophy": "философия",
+        "poetry": "поэзия",
+        "psychology": "психология",
+        "religion": "религия",
+        "science": "наука",
+        "suspense": "напряженный",
+        "spirituality": "духовность",
+        "sports": "спорт",
+        "thriller": "триллер",
+        "travel": "путешествия",
+    }
 
     context = {
         "books": books[:100],
