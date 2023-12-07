@@ -308,13 +308,12 @@
                         <div class='rating-block' id='rating-block-{{ book.id }}' onmouseover="rateStart(this)"
                             onclick='rateBook(this)' onmouseout='finishRate(this)' data-book-id="{{ book.id }}">
                             <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart" style="color:red"></i>
-                                книгу</a>
                             </div>
                             <div class='rateYo' id='rate-{{ book.id }}'></div>
                         </div>
                         {% else %}
                         <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу
+                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i>
                                 </a>
                             </div>
                         </div>
