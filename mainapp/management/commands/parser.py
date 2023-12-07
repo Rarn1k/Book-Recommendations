@@ -4,6 +4,7 @@ import django
 import random
 import string
 import root.settings as settings
+from django.core.management.base import BaseCommand
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "root.settings")
 django.setup()
@@ -83,24 +84,28 @@ def parse_ratings(dfratings):
     print('')
 
 
-if __name__ == "__main__":
+class Command(BaseCommand):
+    help = 'Initialize db from csv files'
 
-    book_path = os.path.join(settings.STATICFILES_DIRS[0], 'dataset', 'books.csv')
-    rating_path = os.path.join(settings.STATICFILES_DIRS[0], 'dataset', 'ratings.csv')
-    dfbook = pd.read_csv(book_path)
+    def handle(self, *args, **options):
 
-
-    ##----parse genres----
-    # Genre.objects.all().delete()
-    # parse_genres(dfbook)
+        book_path = os.path.join(settings.STATICFILES_DIRS[0], 'dataset', 'books.csv')
+        rating_path = os.path.join(settings.STATICFILES_DIRS[0], 'dataset', 'ratings.csv')
+        dfbook = pd.read_csv(book_path)
 
 
-    ##----parse books----
-    # Book.objects.all().delete()
-    # parse_books(dfbook)
+        #----parse genres----
+        Genre.objects.all().delete()
+        parse_genres(dfbook)
 
 
-    ## ----parse ratings----
-    # dfratings = pd.read_csv(rating_path)
-    # parse_ratings(dfratings)
+        #----parse books----
+        Book.objects.all().delete()
+        parse_books(dfbook)
+
+
+        # ----parse ratings----
+        UserRating.objects.all().delete()
+        dfratings = pd.read_csv(rating_path)
+        parse_ratings(dfratings)
 
