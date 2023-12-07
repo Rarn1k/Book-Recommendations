@@ -1,11 +1,10 @@
 from django.urls import path, re_path
 
 from . import views_ajax
-from .views import index, book_summary, explore_books, personal_recommendations, saved_list, rated_books
+from .views import index, explore_books, personal_recommendations, saved_list, rated_books
 
 urlpatterns = [
     path('', index, name='index'),
-    path("book_summary/", book_summary, name="summary"),
     path("explore_books/", explore_books, name="explore_books"),
     path("personal_recommendations/", personal_recommendations, name="personal_recommendations"),
     path("saved_list/", saved_list, name="saved_list"),

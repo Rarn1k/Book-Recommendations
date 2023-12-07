@@ -15,7 +15,8 @@ from mainapp.models import UserRating
 
 def create_update_model_predict():
     """
-    Create or update user-based collaborative filtering model
+    Create or update user-based collaborative filtering model.
+    Result predictions of model are serialized and saved to pickle object.
     """
     users = list(UserRating.objects.values_list('user', flat=True))
     books = list(UserRating.objects.values_list('book', flat=True))

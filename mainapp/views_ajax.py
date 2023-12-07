@@ -1,8 +1,6 @@
-from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from mainapp.models import UserRating, SaveForLater, Book
-from django.forms.models import model_to_dict
 import json
 
 
