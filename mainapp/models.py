@@ -1,8 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class Genre(models.Model):
+    """
+    Table for genres.
+    """
 
     name = models.CharField(max_length=50, verbose_name='Название жанра')
 
@@ -15,7 +20,9 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
-
+    """
+    Table for books
+    """
     title = models.CharField(max_length=1000, verbose_name='Название книги')
     authors = models.CharField(max_length=1000, verbose_name='Авторы')
     image_url = models.URLField(verbose_name="Изображение")
@@ -33,6 +40,9 @@ class Book(models.Model):
 
 
 class UserRating(models.Model):
+    """
+    Table for storing ratings of users.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_rating", verbose_name="Пользователь")
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="user_rating", verbose_name="Книга")
     book_rating = models.IntegerField(verbose_name="Оценка")
@@ -48,8 +58,34 @@ class UserRating(models.Model):
 
 
 class SaveForLater(models.Model):
+    """
+    Table for saving books for users.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_save", verbose_name="Пользователь")
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="user_save", verbose_name="Книга")
 
     def __str__(self):
         return self.user.username.capitalize() + "- " + self.book.title
+
+
+@receiver(post_save, sender=UserRating)
+def update_book_rating(sender, instance, **kwargs):
+    """
+    When users creates or updates rating for some book, in is needed recount average rating of book.
+    """
+    book = instance.book
+    total_ratings = book.rating_counts
+
+    #если пользователь уже оценивал эту книгу
+    previous_rating = UserRating.objects.filter(book=book, user=instance.user).first()
+
+    if not previous_rating:
+        total_ratings += 1
+
+    if total_ratings > 0:
+        average_rating = (book.average_rating * book.rating_counts) - (previous_rating.book_rating if previous_rating else 0)
+        average_rating = (average_rating + int(instance.book_rating)) / total_ratings
+    else:
+        average_rating = instance.rating
+
+    Book.objects.filter(pk=book.pk).update(average_rating=average_rating, rating_counts=total_ratings)

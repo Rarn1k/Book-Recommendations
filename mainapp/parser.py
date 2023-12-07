@@ -12,6 +12,14 @@ from mainapp.models import Book, Genre, UserRating, User
 
 
 def parse_genres(dfbook):
+    """
+    Filling out the table Genre from dataset.
+
+    Parameters:
+    -----------
+    dfbook: pd.DataFrame
+        Dataset with books
+    """
     genres = [genres.split(',') for genres in dfbook['genre'].unique()]
     flattened_genres = [genre.replace(" ", "") for sublist in genres for genre in sublist]
     finally_genres = list(set(flattened_genres))
@@ -20,6 +28,14 @@ def parse_genres(dfbook):
 
 
 def parse_books(dfbook):
+    """
+    Filling out the table Book from dataset.
+
+    Parameters:
+    -----------
+    dfbook: pd.DataFrame
+        Dataset with books
+    """
     for i in range(dfbook.shape[0]):
         book_obj = Book.objects.create(id=dfbook['r_index'].iloc[i],
                                        title=dfbook['original_title'].iloc[i],
@@ -36,6 +52,14 @@ def parse_books(dfbook):
 
 
 def parse_ratings(dfratings):
+    """
+    Filling out the tables USer and UserRating from dataset (first 500 users).
+
+    Parameters:
+    -----------
+    dfbook: pd.DataFrame
+        Dataset with books
+    """
     users_id = dfratings['user_id'].unique()
     users_id = sorted(users_id)
     new_dfratings = dfratings[dfratings['user_id'] < users_id[500]]
@@ -66,17 +90,17 @@ if __name__ == "__main__":
     dfbook = pd.read_csv(book_path)
 
 
-    #----parse genres----
+    ##----parse genres----
     # Genre.objects.all().delete()
     # parse_genres(dfbook)
 
 
-    # ----parse books----
+    ##----parse books----
     # Book.objects.all().delete()
     # parse_books(dfbook)
 
 
-    # ----parse ratings----
+    ## ----parse ratings----
     # dfratings = pd.read_csv(rating_path)
     # parse_ratings(dfratings)
 

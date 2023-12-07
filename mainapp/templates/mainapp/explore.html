@@ -62,13 +62,14 @@ Explore
         <div class="col-md-9">
             <div class="large-screen" style="width:1200px; margin:0 auto;">
                 <div class="centre, card-deck">
-                    {% for book in books %}
+                    {% for book in page_obj %}
                     <div class="card col-sm-12 col-lg-3 " style="width: 300px;">
                         <div class="row no-gutters" data-book-id="{{ book.id }}" onclick='bookDetails(this)'>
                             <img class=" card-img  mt-4 " src="{{book.image_url}}" alt="book Card">
                             <div class="content text-center">
                                 <div class="card-title">{{ book.title|truncatechars:30 }}</div>
                                 <div class="card-text">{{ book.authors|truncatechars:25}}</div>
+                                <span class="book-voters">{{book.average_rating}} &#11088;</span>
                             </div>
                         </div>
                         <br>
@@ -78,14 +79,12 @@ Explore
                         <div class='rating-block' id='rating-block-{{ book.id }}' onmouseover="rateStart(this)"
                              onclick='rateBook(this)' onmouseout='finishRate(this)' data-book-id="{{ book.id }}">
                             <div id='button-text-{{ book.id }}'>Оценить <i class="fa fa-heart" style="color:red"></i>
-                                книгу
-                                </a>
                             </div>
                             <div class='rateYo' id='rate-{{ book.id }}'></div>
                         </div>
                         {% else %}
                         <div class='rating-block btn' onclick="location.href='{% url 'account_signup' %}'">
-                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i> книгу
+                            <div id='button-text'>Оценить <i class="fa fa-heart" style="color:red"></i>
                             </div>
                         </div>
                         {% endif %}
@@ -96,6 +95,20 @@ Explore
                     {% endif %}
                     {% endfor %}
                 </div>
+        <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="btn link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">&laquo; </a>
+        </li>
+        {% endif %}
+
+        <li class="page-item "><span class="btn des">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span></li>
+        {% if page_obj.has_next %}
+        <li class="page-item "><a class="btn link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"> &raquo;</a></li>
+        {% endif %}
+        </nav>
             </div>
         </div>
     </div>

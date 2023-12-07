@@ -59,9 +59,10 @@
 }
 
 .card-deck {
-    padding-left: 5%;
+    padding-left: 0%;
     padding-right: 5%;
     padding-bottom: 2%;
+    margin-right: 2%;
 }
 
 .card {
@@ -184,6 +185,25 @@
     -webkit-line-clamp: 3;
     /* number of lines to show */
     -webkit-box-orient: vertical;
+}
+
+.link {
+    background-color: white;
+    color: #7D5CCC;
+}
+
+.link:hover {
+    color: #7D5CCC;
+    background-color: #e5e4e2;
+}
+
+.des {
+    color: black;
+    border-block-color: black;
+}
+
+.pagination {
+    margin-top: 50px;
 }
 
 @media (max-width: 420px) {

@@ -6,11 +6,12 @@
 }
 
 .heading {
-    font-family: "Lobster", cursive;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-weight: bold;
     font-size: 300%;
-    background-color: #d7722c;
     margin-top: 0px;
-    color: white;
+    color: black;
 }
 
 .cover-img {
@@ -22,8 +23,8 @@
     display: flex;
     padding: 25px;
     width: 33.33%;
-    height: 250px;
-    background-color: #133050;
+    height: 300px;
+    background-color: #4C7472;
 }
 
 .book-photo {

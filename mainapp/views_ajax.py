@@ -1,8 +1,6 @@
-from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from mainapp.models import UserRating, SaveForLater, Book
-from django.forms.models import model_to_dict
 import json
 
 
@@ -95,3 +93,11 @@ def remove_saved_book(request):
             return JsonResponse({"success": True}, status=200)
         except SaveForLater.DoesNotExist:
             return JsonResponse({"success": False}, status=200)
+
+
+def check_saved_book(request):
+    """AJAX request for check book in saved list"""
+    if request.method == "POST" and is_ajax(request=request):
+        book_id = request.POST.get("bookid", None)
+        is_saved = SaveForLater.objects.filter(user=request.user).filter(book_id=book_id).exists()
+        return JsonResponse({"success": True, "is_saved": is_saved}, status=200)
