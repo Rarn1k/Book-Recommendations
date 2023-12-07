@@ -4,11 +4,12 @@
 
 .genre-head,
 .topbook-head {
-    font-family: "Lobster", cursive;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-weight: bold;
     font-size: 300%;
-    background-color: #d7722c;
     margin-top: 0px;
-    color: white;
+    color: black;
 }
 
 .card-img {
@@ -124,17 +125,17 @@
 
 .link {
     background-color: white;
-    color: #d7722c;
+    color: #7D5CCC;
 }
 
 .link:hover {
-    color: #d7722c;
+    color: #7D5CCC;
     background-color: #e5e4e2;
 }
 
 .des {
-    background-color: #d7722c;
-    color: white;
+    color: black;
+    border-block-color: black;
 }
 
 .pagination {

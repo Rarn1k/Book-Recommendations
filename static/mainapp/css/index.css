@@ -129,7 +129,8 @@
 
 .genre-head,
 .topbook-head {
-    font-family: "Lobster", cursive;
+    font-family: Georgia, serif;
+    font-style: italic;
 }
 
 .heading-genre {
@@ -137,12 +138,15 @@
     font-size: 47px;
 }
 
-.genre-container,
-.top-books {
-    background-color: #153450;
+.genre-container{
+    background-color: #886094;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
 }
 
+.top-books{
+    background-color: #4C7472;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+}
 .col-lg-3:hover {
     transform: scale(1.07);
     transition: all 0.5s ease;
@@ -172,7 +176,7 @@ ol.carousel-indicators li {
     height: 7px;
     border: none;
     border-radius: 10px;
-    background-color: #dc3545;
+    background-color: #84CEEB;
     opacity: 0.6;
     margin: 0 5px;
 }
@@ -200,7 +204,7 @@ ol.carousel-indicators li.active {
     height: 50px;
     top: 50%;
     border-radius: 50%;
-    background-color: #dc3545;
+    background-color: #84CEEB;
 }
 
 @media screen and (min-width: 992px) {

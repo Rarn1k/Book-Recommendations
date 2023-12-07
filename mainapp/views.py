@@ -46,8 +46,7 @@ def explore_books(request):
 
     if books:
         if sort_by == "rating":
-            sample = get_top_books(books)['title'].values
-            books = Book.objects.filter(title__in=sample)
+            books = books.order_by("-average_rating")
         elif sort_by == 'number_of_ratings':
             books = books.order_by("rating_counts")
         elif sort_by == "title":

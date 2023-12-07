@@ -1,5 +1,5 @@
 html,body{
-    background-color: #ffdab9;
+    background-color: #C1C8E4;
     height: 100%;
     max-width: 100%;
     overflow-x: hidden;
@@ -18,7 +18,7 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #FE7D6A;
+    background-color: #5AB8EB;
 }
 
 body::-webkit-scrollbar-thumb:hover {
@@ -127,7 +127,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: -ms-flexbox;
     display: flex;
     padding: 1rem 1rem;
-    background-color: #ffc107;
+    background-color: #8860D0;
 }
 
 .modal .modal-title {
