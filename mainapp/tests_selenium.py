@@ -70,11 +70,8 @@ class ExploreBooksSeleniumTest(LiveServerTestCase):
         sort_select = Select(self.browser.find_element(By.ID, "sort"))
         sort_select.select_by_value("number_of_ratings")
 
-        # Дождаться, пока обновится список книг
-        WebDriverWait(self.browser, 5).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "large-screen"))
+        results_search = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_all_elements_located((By.CLASS_NAME, "large-screen"))
         )
-
-        # Проверить, что "Track of the Cat" присутствует в списке книг
-        track_of_the_cat_element = self.browser.find_element(By.CSS_SELECTOR, '[data-book-id="1"]')
-        self.assertIsNotNone(track_of_the_cat_element)
+        results_search_text = results_search[0].text
+        self.assertIn("Track of the Cat", results_search_text)
